@@ -20,36 +20,36 @@ public class PersonDAO {
     }
 
     public List<Person> index() {
-        return jdbcTemplate.query("SELECT * FROM Person", new BeanPropertyRowMapper<>(Person.class));
+        return jdbcTemplate.query("SELECT * FROM person",
+                new BeanPropertyRowMapper<>(Person.class));
     }
 
     public Person show(int id) {
-        return jdbcTemplate.query("SELECT * FROM Person WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
+        return jdbcTemplate.query("SELECT * FROM person WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
                 .stream().findAny().orElse(null);
-
     }
 
     public void save(Person person) {
-        jdbcTemplate.update("INSERT INTO Person(fullNAme=?,age=?) VALUES(?,?)",
+        jdbcTemplate.update("INSERT INTO person(full_name, age) VALUES(?,?)",
                 person.getFullName(), person.getAge());
     }
 
     public void update(int id, Person person) {
-        jdbcTemplate.update("UPDATE Person SET fullName=?,age=? WHERE id=?",
+        jdbcTemplate.update("UPDATE person SET full_name=?,age=? WHERE id=?",
                 person.getFullName(), person.getAge(), id);
     }
 
     public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM Person WHERE id=?", id);
+        jdbcTemplate.update("DELETE FROM person WHERE id=?", id);
     }
 
     public Optional<Person> getPersonFullName(String fullName) {
-        return jdbcTemplate.query("SELECT * FROM Person WHERE fullName=?", new Object[]{fullName},
+        return jdbcTemplate.query("SELECT * FROM person WHERE full_name=?", new Object[]{fullName},
                 new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
     }
 
     public List<Book> getBooksUsePersonId(int id) {
-        return jdbcTemplate.query("SELECT * FROM Book WHERE person_id=?", new Object[]{id},
+        return jdbcTemplate.query("SELECT * FROM book WHERE person_id=?", new Object[]{id},
                 new BeanPropertyRowMapper<>(Book.class));
     }
 
