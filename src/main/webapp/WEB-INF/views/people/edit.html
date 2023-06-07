@@ -9,6 +9,17 @@
 </head>
 <body>
 
-<a>Hello</a>
+<form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+    <leble for="fullName">Enter Full Name</leble>
+    <input type="text" th:field="*{fullName}" id="fullName" />
+    <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">full Name error</div>
+    <br/>
+
+    <leble for="age">Enter Age Name</leble>
+    <input type="text" th:field="*{age}" id="age" />
+    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
 </body>
 </html>

@@ -2,13 +2,12 @@ package com.example.library.moduls;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Person {
     private int id;
+
     @NotEmpty(message = "name should not be empty")
     @Size(min = 2, max = 100, message = "name should be 2 or 100 characters")
     private String fullName;

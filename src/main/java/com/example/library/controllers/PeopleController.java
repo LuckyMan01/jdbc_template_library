@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 
 @Controller
 @RequestMapping("/people")
@@ -24,9 +25,16 @@ public class PeopleController {
     }
 
     @GetMapping()
-    public String index() {
-        return "/books/index";
+    public String index(Model model) throws SQLException {
+        model.addAttribute("people", personDAO.index());
+        return "people/index";
     }
+
+//    @GetMapping("/person_books")
+//    public String getBooks(@PathVariable("id") int id, Model model) throws SQLException {
+//        model.addAttribute("people", personDAO.getBooksUsePersonId(id));
+//        return "people/show";
+//    }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
@@ -56,16 +64,16 @@ public class PeopleController {
         return "people/edit";
     }
 
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
-        personValidator.validate(person, bindingResult);
-
-        if (bindingResult.hasGlobalErrors()) {
-            return "people/edit";
-        }
-        personDAO.update(id, person);
-        return "redirect:/people";
-    }
+//    @PatchMapping("/{id}")
+//    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
+//        personValidator.validate(person, bindingResult);
+//
+//        if (bindingResult.hasGlobalErrors()) {
+//            return "people/edit";
+//        }
+//        personDAO.update(id, person);
+//        return "redirect:/people";
+//    }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
