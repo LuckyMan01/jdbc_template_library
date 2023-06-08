@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+    <leble for="fullName">Enter Full Name</leble>
+    <input type="text" th:field="*{fullName}" id="fullName" />
+    <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">full Name error</div>
+    <br/>
+
+    <leble for="age">Enter Age Name</leble>
+    <input type="text" th:field="*{age}" id="age" />
+    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+</body>
+</html>
