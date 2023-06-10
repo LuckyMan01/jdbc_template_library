@@ -1,8 +1,9 @@
 package com.example.library.dao;
 
-import com.example.library.moduls.Book;
-import com.example.library.moduls.Person;
+import com.example.library.models.Book;
+import com.example.library.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -24,9 +25,9 @@ public class PersonDAO {
                 new BeanPropertyRowMapper<>(Person.class));
     }
 
-    public Person show(int id) {
+    public Optional<Person> show(int id) {
         return jdbcTemplate.query("SELECT * FROM person WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
-                .stream().findAny().orElse(null);
+                .stream().findAny();
     }
 
     public void save(Person person) {

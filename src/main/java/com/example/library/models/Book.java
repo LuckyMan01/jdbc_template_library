@@ -1,4 +1,4 @@
-package com.example.library.moduls;
+package com.example.library.models;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -15,7 +15,7 @@ public class Book {
     @Size(min = 2, max = 40, message = "Author should be between 2 and 40 characters")
     private String author;
 
-    @Min(value = 1500, message = "year should be not lower this value 1900  ")
+    @Min(value = 100, message = "year should be not lower this value 1900  ")
     private int year;
 
 
@@ -27,6 +27,10 @@ public class Book {
         this.title = title;
         this.author = author;
         this.year = year;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -55,5 +59,15 @@ public class Book {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", year=" + year +
+                '}';
     }
 }
