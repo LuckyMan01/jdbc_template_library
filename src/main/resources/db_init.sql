@@ -1,1 +1,1 @@
-select * from person
+SELECT book.person_id FROM book where id = 2;

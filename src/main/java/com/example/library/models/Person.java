@@ -1,4 +1,4 @@
-package com.example.library.moduls;
+package com.example.library.models;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -18,6 +18,7 @@ public class Person {
     public Person() {
     }
 
+
     public Person(int id, String fullName, int age) {
         this.id = id;
         this.fullName = fullName;
@@ -28,6 +29,9 @@ public class Person {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFullName() {
         return fullName;
@@ -44,4 +48,13 @@ public class Person {
     public void setAge(int age) {
         this.age = age;
     }
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,13 +9,27 @@
 </head>
 <body>
 <p th:text="${person.getFullName() + ', ' + person.getAge()}">VALUE</p>
-<div th:each="book: ${person_books}">
-    <a th:href="@{/books/{id}(id=${book.getId()})}"
-       th:text="${book.getTitle() + ', ' + book.getYear()}">user</a>
+<hr/>
+
+<div th:if="${books.isEmpty()}">
+    <p>Person didn't toke a books</p>
 </div>
-<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+
+<div th:if="${!books.isEmpty()}">
+    <b>Books</b>
+    <div th:each="book: ${books}">
+        <a th:href="@{/books/{id}(id=${book.getId()})}"
+           th:text="${book.getTitle() + ', ' + book.getYear()}">book</a>
+    </div>
+</div>
+<hr/>
+<div style="display:flex;">
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+        <input type="submit" value="Delete"/>
+    </form>
+    <a style="color: white;background-color: grey;text-decoration: none;padding: 1px 30px;"
+       th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit</a>
+</div>
 
 </body>
 </html>

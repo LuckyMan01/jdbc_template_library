@@ -8,16 +8,23 @@
     <title>new</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/people}" th:object="${person}">
-    <leble for="fullName">Enter Full Name</leble>
-    <input type="text" th:field="*{fullName}" id="fullName" />
-    <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">full Name error</div>
+<form th:method="POST" th:action="@{/books}" th:object="${book}">
+    <leble for="title">Enter Title </leble>
+    <input type="text" th:field="*{title}" id="title" />
+    <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title error</div>
     <br/>
 
-    <leble for="age">Enter Age Name</leble>
-    <input type="text" th:field="*{age}" id="age" />
-    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
+    <leble for="author">author year</leble>
+    <input type="text" th:field="*{author}" id="author" />
+    <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">author error</div>
     <br/>
+
+    <leble for="year">Enter year</leble>
+    <input type="text" th:field="*{year}" id="year" />
+    <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">year error</div>
+    <br/>
+
+
     <input type="submit" value="Create!"/>
 </form>
 </body>

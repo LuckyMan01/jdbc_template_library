@@ -1,16 +1,19 @@
 package com.example.library.controllers;
 
 import com.example.library.dao.PersonDAO;
-import com.example.library.moduls.Person;
+
+import com.example.library.models.Person;
 import com.example.library.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/people")
@@ -30,16 +33,17 @@ public class PeopleController {
         return "people/index";
     }
 
-//    @GetMapping("/person_books")
-//    public String getBooks(@PathVariable("id") int id, Model model) throws SQLException {
-//        model.addAttribute("people", personDAO.getBooksUsePersonId(id));
-//        return "people/show";
-//    }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", personDAO.show(id));
-        return "people/show";
+        Optional<Person> personOpt = personDAO.show(id);
+        if (personOpt.isPresent()) {
+            model.addAttribute("person", personOpt.get());
+            model.addAttribute("books", personDAO.getBooksUsePersonId(id));
+            return "people/show";
+        }
+        model.addAttribute("origin","people");
+        return "errors/404";
     }
 
     @GetMapping("/new")
@@ -64,16 +68,16 @@ public class PeopleController {
         return "people/edit";
     }
 
-//    @PatchMapping("/{id}")
-//    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
-//        personValidator.validate(person, bindingResult);
-//
-//        if (bindingResult.hasGlobalErrors()) {
-//            return "people/edit";
-//        }
-//        personDAO.update(id, person);
-//        return "redirect:/people";
-//    }
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
+        personValidator.validate(person, bindingResult);
+
+        if (bindingResult.hasGlobalErrors()) {
+            return "people/edit";
+        }
+        personDAO.update(id, person);
+        return "redirect:/people";
+    }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
