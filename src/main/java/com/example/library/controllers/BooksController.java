@@ -67,7 +67,7 @@ public class BooksController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("book", bookDAO.show(id));
+        model.addAttribute("book", bookDAO.show(id).get());
         return "books/edit";
     }
 
